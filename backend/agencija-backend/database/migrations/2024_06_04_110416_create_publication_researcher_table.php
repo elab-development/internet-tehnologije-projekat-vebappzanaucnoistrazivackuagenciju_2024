@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('publication_researcher', function (Blueprint $table) {
             $table->id();
+            // $table->foreignId('publicationId');
+            $table->foreignId('publication_id')->constrained('publication')->onDelete('cascade');
+            $table->foreignId('researcher_id')->constrained('researcher')->onDelete('cascade');
+            // $table->foreignId('researcherId');
             $table->timestamps();
         });
     }

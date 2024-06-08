@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('reference', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('publication_id')->constrained('publication')->onDelete('cascade');
+            $table->foreignId('referenced_id')->constrained('publication')->onDelete('cascade');
             $table->timestamps();
         });
     }
