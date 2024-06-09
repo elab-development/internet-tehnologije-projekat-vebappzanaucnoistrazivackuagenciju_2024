@@ -13,10 +13,7 @@ Route::get('/greeting', function () {
 });
 Route::get('/cities', [CityController::class,'index']);
 Route::get('/cities/{id}', [CityController::class,'showById']);
+
+
 Route::get('/researchers', [ResearcherController::class,'index']);
-// Route::get('/researchers', [ResearcherController::class,'indexSimple']);
-// Route::get('/researchers/{id}', [ResearcherController::class,'showByIdSimple']);
 Route::get('/researchers/{id}', [ResearcherController::class,'showById']);
-
-Route::resource('researchers', ResearcherController::class);
-

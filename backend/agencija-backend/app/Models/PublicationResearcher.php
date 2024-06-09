@@ -10,6 +10,9 @@ class PublicationResearcher extends Model
     use HasFactory;
     protected $guarded = ['id'];
     
+    protected $table = 'publication_researcher';
+
+
     // public function publicationId(){
     //     return $this->belongsTo(Publication::class);
     // }

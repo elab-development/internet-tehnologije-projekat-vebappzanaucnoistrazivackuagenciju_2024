@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     use HasFactory;
-    
+    protected $table = 'reference';
+
     protected $guarded = ['id'];
     
     public function publication_id(){

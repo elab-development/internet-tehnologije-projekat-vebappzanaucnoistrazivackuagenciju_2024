@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Researcher extends Model
 {
     use HasFactory;
+    protected $table = 'researcher';
 
     protected $guarded = ['id'];
     protected $fillable = [
@@ -15,8 +16,10 @@ class Researcher extends Model
         'lastname',
         'birthday',
     ];
-    public function city_id(){
-        return $this->belongsto(City::class);
+    public function city(){
+        // return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id');
+
     }
     public function publication_researchers(){
         return $this->hasMany(PublicationResearcher::class);
