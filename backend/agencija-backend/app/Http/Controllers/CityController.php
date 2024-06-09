@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Response;
 
 class CityController extends Controller
 {
@@ -39,6 +40,12 @@ class CityController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $city = City::create($validated);
+        return response()->json($city, 201);
     }
 
     /**
@@ -71,14 +78,31 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        //
+        $city = City::findOrFail($request->id);
+
+        if ($city->update($request->all()) === false) {
+            return response(
+                "Couldn't update the city with id {$request->id}"
+                // response()::HTTP_BAD_REQUEST
+            );
+        }
+
+        return response($city);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(City $city)
+    public function destroy(Request $request)
     {
-        //
+        $city = City::findOrFail($request->id);
+
+        if ($city->delete() === false) {
+            return response(
+                "Couldn't delete the city with id {$request->id}"
+            );
+        }
+
+        return response(["id" => $request->id, "deleted" => true],200);
     }
 }
