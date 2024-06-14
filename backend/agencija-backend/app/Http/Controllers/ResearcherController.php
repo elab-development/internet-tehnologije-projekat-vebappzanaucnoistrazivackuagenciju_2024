@@ -43,20 +43,6 @@ class ResearcherController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-        //     'firstname' => 'required|string|max:255',
-        //     'lastname' => 'required|string|max:255',
-        //     'birthday' => 'required|date',
-        //     'city_id' => 'required|integer|exists:cities,id'
-        // ]);
-
-        // $researcher = Researcher::create($validated);
-        // return response()->json($request->all());
-        // return response()->json($request->all() , "city_id"=>$request->city_id);
-        // $researcher = Researcher::create([$request->all(),"city_id"=>$request->city_id]);
-        // return response()->json($researcher, 201);
-        // return new ResearcherResource($researcher);
-
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -91,8 +77,8 @@ class ResearcherController extends Controller
             );
         }
 
-        return new ResearcherResource($researcher);
-        // return response($researcher);
+        // return new ResearcherResource($researcher);
+        return response($researcher);
     }
 
     /**

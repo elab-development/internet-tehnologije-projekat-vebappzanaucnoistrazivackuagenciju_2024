@@ -21,7 +21,8 @@ class ResearcherResource extends JsonResource
             "firstname" => $this->resource->firstname,
             "lastname" => $this->resource->lastname,
             "birthday" => $this->resource->birthday,
-            "city" => $this->resource->city
+            // "city" => $this->resource->city
+            "city" => new CityResource($this->resource->city)
             // "city" => new CityResource($this->whenLoaded('city'))
         ];
     }
