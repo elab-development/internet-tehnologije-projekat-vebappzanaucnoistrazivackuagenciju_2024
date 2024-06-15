@@ -39,3 +39,9 @@ Route::get('/researchers/{id}', [ResearcherController::class,'showByIdSimple']);
 // Route::get('/researchers', [ResearcherController::class,'index']);
 // Route::get('/researchers/{id}', [ResearcherController::class,'showById']);
 // Route::resource('cities', CityController::class);
+
+Route::get('/publications', [PublicationController::class,'index']);
+Route::post('/publications/store', [PublicationController::class,'store']);
+Route::put('/publications/update', [PublicationController::class,'update']);
+Route::delete('/publications/delete', [PublicationController::class,'destroy']);
+Route::get('/publications/{id}', [PublicationController::class,'showById']);
