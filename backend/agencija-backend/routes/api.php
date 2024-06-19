@@ -3,6 +3,7 @@
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicationResearcherController;
+use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\ResearcherController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,12 @@ Route::get('/publications/{id}', [PublicationController::class,'showById']);
 
 Route::get('/publicationResearchers', [PublicationResearcherController::class,'index']);
 Route::post('/publicationResearchers/store', [PublicationResearcherController::class,'store']);
-// Route::put('/publicationResearchers/update', [PublicationResearcherController::class,'update']);
 Route::delete('/publicationResearchers/delete', [PublicationResearcherController::class,'destroy']);
 Route::delete('/publicationResearchers/delete/{id}', [PublicationResearcherController::class,'destroyById']);
 Route::get('/publicationResearchers/{id}', [PublicationResearcherController::class,'showById']);
+
+Route::get('/references', [ReferenceController::class,'index']);
+Route::post('/references/store', [ReferenceController::class,'store']);
+Route::delete('/references/delete', [ReferenceController::class,'destroy']);
+Route::delete('/references/delete/{id}', [ReferenceController::class,'destroyById']);
+Route::get('/references/{id}', [ReferenceController::class,'showById']);

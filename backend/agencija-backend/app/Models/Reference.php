@@ -10,13 +10,27 @@ class Reference extends Model
     use HasFactory;
     protected $table = 'reference';
 
+    protected $fillable = [
+        'publication_id',
+        'referenced_id'
+    ];
+
     protected $guarded = ['id'];
-    
-    public function publication_id(){
-        return $this->belongsTo(Publication::class);
+    /**
+     * 
+     * Main publication whitch references other publications
+     * 
+    */
+    public function publication(){
+        return $this->belongsTo(Publication::class,"publication_id");
     }
-    public function referenced_id(){
-        return $this->belongsTo(Publication::class);
+
+    /**
+     * Publication that is referenced in the main publication.
+     * 
+     */
+    public function referenced(){
+        return $this->belongsTo(Publication::class,"referenced_id");
     }
     
 }
