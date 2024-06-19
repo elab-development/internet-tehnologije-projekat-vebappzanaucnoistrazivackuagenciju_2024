@@ -19,6 +19,7 @@ class PublicationResource extends JsonResource
             'name' => $this->name,
             'text' => $this->text,
             'date' => $this->date
-        ];
-    }
+        ];
+
+    }
 }

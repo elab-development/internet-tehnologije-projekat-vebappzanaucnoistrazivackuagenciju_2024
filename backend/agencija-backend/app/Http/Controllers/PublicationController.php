@@ -24,7 +24,7 @@ class PublicationController extends Controller
             return response()->json("Data not found", 404);
         } else
             return $publicationId;
-            // return new PublicationResource($publication);
+        // return new PublicationResource($publication);
     }
     /**
      * Show the form for creating a new resource.
@@ -100,6 +100,6 @@ class PublicationController extends Controller
             );
         }
 
-        return response(["id" => $request->id, "deleted" => true],200);
-    }
+        return response(["id" => $request->id, "deleted" => true], 200);
+    }
 }

@@ -12,14 +12,18 @@ class PublicationResearcher extends Model
     
     protected $table = 'publication_researcher';
 
+    protected $fillable = [
+        'publication_id',
+        'researcher_id'
+    ];
 
     // public function publicationId(){
     //     return $this->belongsTo(Publication::class);
     // }
-    public function publication_id(){
-        return $this->belongsTo(Publication::class);
+    public function publication(){
+        return $this->belongsTo(Publication::class,"publication_id");
     }
-    public function researcher_id(){
-        return $this->belongsTo(Researcher::class);
+    public function researcher(){
+        return $this->belongsTo(Researcher::class,"researcher_id");
     }
 }
