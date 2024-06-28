@@ -4,13 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    protected $table = 'user';
+    use HasFactory, Notifiable, HasApiTokens;
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +24,19 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    public static function searchByEmail($email)
+    {
+        $user = self::where('email', $email)->first();
+        if (!$user) {
+            throw new ModelNotFoundException("User not found");
+        }
+        return $user;
+    }
+    // public function checkPassword($passwordChech)
+    // {
+    //     return $th;
+    // }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

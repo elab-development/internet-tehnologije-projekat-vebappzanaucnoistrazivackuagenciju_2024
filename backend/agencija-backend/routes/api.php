@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicationResearcherController;
@@ -38,3 +39,6 @@ Route::post('/references/store', [ReferenceController::class,'store']);
 Route::delete('/references/delete', [ReferenceController::class,'destroy']);
 Route::delete('/references/delete/{id}', [ReferenceController::class,'destroyById']);
 Route::get('/references/{id}', [ReferenceController::class,'showById']);
+
+Route::post('/register', [AuthController::class,'register']);
+Route::post('/login', [AuthController::class,'login']);
