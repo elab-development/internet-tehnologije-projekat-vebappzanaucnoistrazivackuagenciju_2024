@@ -26,7 +26,11 @@ class AuthController extends Controller
             return response()->json("incorect password", 201);
             // throw new Exception("incorect password", 1);
         } else {
-            $token = $dbUser->createToken("auth_token")->plainTextToken;
+            if($dbUser->role == "ADMIN") {
+                $token = $dbUser->createToken("auth_token",["admin"])->plainTextToken;
+            }else{
+                $token = $dbUser->createToken("auth_token",["user"])->plainTextToken;
+            }
             return response()->json($token, 201);
         }
     }
@@ -41,10 +45,11 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password'])
+            'password' => Hash::make($validatedData['password']),
+            'role'=>"USER"
         ]);
 
-        $token = $user->createToken("auth_token")->plainTextToken;
+        $token = $user->createToken("auth_token",["user"])->plainTextToken;
 
         return response()->json($token, 201);
     }
