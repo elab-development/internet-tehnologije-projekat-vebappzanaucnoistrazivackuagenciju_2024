@@ -109,4 +109,22 @@ class PublicationResearcherController extends Controller
         $publicationResearcher->delete();
         return response()->json(null, 204);
     }
+
+    public function filterPaginate(Request $request)
+    {
+        $researcherId = $request->researcherId;
+        $sizeString = $request->query('size');
+        $size = 15;
+        if (!$sizeString) {
+            $size = 15;
+        } else {
+            $size = (int) $sizeString;
+        }
+
+        if (!$researcherId) {
+            return PublicationResearcherResource::collection(PublicationResearcher::paginate($size));
+        } else {
+            return PublicationResearcherResource::collection(PublicationResearcher::where('researcher_id', '=', $researcherId)->paginate($size));
+        }
+    }
 }
