@@ -26,4 +26,16 @@ class PublicationResearcher extends Model
     public function researcher(){
         return $this->belongsTo(Researcher::class,"researcher_id");
     }
+
+
+    public static function searchByPublicationIdANDResearcherId($publicationId, $researcherId)
+    {
+        $record = self::where('publication_id', $publicationId)
+                      ->where('researcher_id', $researcherId)
+                      ->first();
+        if (!$record) {
+            return null;
+        }
+        return $record;
+    }
 }

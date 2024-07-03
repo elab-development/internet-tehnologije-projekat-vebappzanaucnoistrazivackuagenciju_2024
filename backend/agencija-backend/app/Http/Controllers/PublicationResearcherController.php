@@ -41,6 +41,11 @@ class PublicationResearcherController extends Controller
             'publication_id' => 'required|integer|exists:publication,id',
         ]);
 
+        $publication_researcherDB = PublicationResearcher::searchByPublicationIdANDResearcherId($validatedData['publication_id'],$validatedData['researcher_id']);
+        if ($publication_researcherDB) {
+            return response()->json("Vec Postoji!!!", 201);
+        }
+
         $publication_researcher = PublicationResearcher::create([
             'publication_id' => $validatedData['publication_id'],
             'researcher_id' => $validatedData['researcher_id']
