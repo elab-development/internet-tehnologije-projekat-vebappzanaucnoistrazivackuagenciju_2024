@@ -18,6 +18,7 @@ Route::get('/cities/{id}', [CityController::class,'showById']);
 
 Route::get('/researchers', [ResearcherController::class,'index']);
 Route::get('/researchers/paginate', [ResearcherController::class,'paginate']);
+Route::post('/researchers/filterPaginate', [ResearcherController::class,'filterPaginate']);
 Route::post('/researchers/store', [ResearcherController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/researchers/update', [ResearcherController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/researchers/delete', [ResearcherController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);

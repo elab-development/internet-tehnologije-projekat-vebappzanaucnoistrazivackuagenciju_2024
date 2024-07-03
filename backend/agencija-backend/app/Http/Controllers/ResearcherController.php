@@ -22,14 +22,32 @@ class ResearcherController extends Controller
     {
         $sizeString = $request->query('size');
         $size = 15;
-        if(!$sizeString){
+        if (!$sizeString) {
             $size = 15;
-        }
-        else{
-            $size = (int)$sizeString;
+        } else {
+            $size = (int) $sizeString;
         }
         // return Researcher::paginate($size);
         return ResearcherResource::collection(Researcher::paginate($size));
+    }
+    public function filterPaginate(Request $request)
+    {
+        $cityId = $request->cityId;
+        $sizeString = $request->query('size');
+        $size = 15;
+        if (!$sizeString) {
+            $size = 15;
+        } else {
+            $size = (int) $sizeString;
+        }
+
+        if (!$cityId) {
+            return ResearcherResource::collection(Researcher::paginate($size));
+
+        } else {
+            return ResearcherResource::collection(Researcher::where('city_id', '=', $cityId)->paginate($size));
+
+        }
     }
 
     public function showById(int $researcherId)
