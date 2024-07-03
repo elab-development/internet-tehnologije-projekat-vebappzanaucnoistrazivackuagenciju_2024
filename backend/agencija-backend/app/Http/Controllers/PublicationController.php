@@ -17,6 +17,19 @@ class PublicationController extends Controller
         return PublicationResource::collection($publications);
         //
     }
+    public function paginate(Request $request)
+    {
+        $sizeString = $request->query('size');
+        $size = 15;
+        if(!$sizeString){
+            $size = 15;
+        }
+        else{
+            $size = (int)$sizeString;
+        }
+        // return Publication::paginate($size);
+        return PublicationResource::collection(Publication::paginate($size));
+    }
     public function showById(int $publicationId)
     {
         $publicationId = Publication::find($publicationId);

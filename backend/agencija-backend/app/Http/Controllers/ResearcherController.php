@@ -18,6 +18,19 @@ class ResearcherController extends Controller
         return ResearcherResource::collection($researchers);
         //
     }
+    public function paginate(Request $request)
+    {
+        $sizeString = $request->query('size');
+        $size = 15;
+        if(!$sizeString){
+            $size = 15;
+        }
+        else{
+            $size = (int)$sizeString;
+        }
+        // return Researcher::paginate($size);
+        return ResearcherResource::collection(Researcher::paginate($size));
+    }
 
     public function showById(int $researcherId)
     {

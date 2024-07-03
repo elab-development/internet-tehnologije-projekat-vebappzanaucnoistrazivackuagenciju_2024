@@ -17,12 +17,14 @@ Route::get('/cities/{id}', [CityController::class,'showById']);
 
 
 Route::get('/researchers', [ResearcherController::class,'index']);
+Route::get('/researchers/paginate', [ResearcherController::class,'paginate']);
 Route::post('/researchers/store', [ResearcherController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/researchers/update', [ResearcherController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/researchers/delete', [ResearcherController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);
 Route::get('/researchers/{id}', [ResearcherController::class,'showByIdSimple']);
 
 Route::get('/publications', [PublicationController::class,'index']);
+Route::get('/publications/paginate', [PublicationController::class,'paginate']);
 Route::post('/publications/store', [PublicationController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/publications/update', [PublicationController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/publications/delete', [PublicationController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);
