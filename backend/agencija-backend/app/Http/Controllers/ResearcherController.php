@@ -41,7 +41,7 @@ class ResearcherController extends Controller
             $size = (int) $sizeString;
         }
 
-        if (!$cityId) {
+        if (!$cityId || $cityId==-1) {
             return ResearcherResource::collection(Researcher::paginate($size));
 
         } else {

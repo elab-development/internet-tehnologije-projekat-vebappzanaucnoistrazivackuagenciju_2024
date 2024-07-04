@@ -36,6 +36,6 @@ class PublicationResearcher extends Model
         if (!$record) {
             return null;
         }
-        return $record;
-    }
+        return $record;
+    }
 }

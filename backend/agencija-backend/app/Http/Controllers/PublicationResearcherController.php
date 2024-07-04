@@ -41,10 +41,10 @@ class PublicationResearcherController extends Controller
             'publication_id' => 'required|integer|exists:publication,id',
         ]);
 
-        $publication_researcherDB = PublicationResearcher::searchByPublicationIdANDResearcherId($validatedData['publication_id'],$validatedData['researcher_id']);
+        $publication_researcherDB = PublicationResearcher::searchByPublicationIdANDResearcherId($validatedData['publication_id'], $validatedData['researcher_id']);
         if ($publication_researcherDB) {
-            return response()->json("Vec Postoji!!!", 201);
-        }
+            return response()->json("Vec Postoji!!!", 201);
+        }
 
         $publication_researcher = PublicationResearcher::create([
             'publication_id' => $validatedData['publication_id'],
@@ -130,6 +130,6 @@ class PublicationResearcherController extends Controller
             return PublicationResearcherResource::collection(PublicationResearcher::paginate($size));
         } else {
             return PublicationResearcherResource::collection(PublicationResearcher::where('researcher_id', '=', $researcherId)->paginate($size));
-        }
-    }
+        }
+    }
 }
