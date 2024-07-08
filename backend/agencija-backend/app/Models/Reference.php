@@ -32,5 +32,14 @@ class Reference extends Model
     public function referenced(){
         return $this->belongsTo(Publication::class,"referenced_id");
     }
-    
+    public static function searchByPublicationIdANDReferencedId($publication_id, $referenced_id)
+    {
+        $record = self::where('publication_id', $publication_id)
+                      ->where('referenced_id', $referenced_id)
+                      ->first();
+        if (!$record) {
+            return null;
+        }
+        return $record;
+    }
 }

@@ -26,6 +26,7 @@ Route::get('/researchers/{id}', [ResearcherController::class,'showById']);
 
 Route::get('/publications', [PublicationController::class,'index']);
 Route::get('/publications/paginate', [PublicationController::class,'paginate']);
+Route::post('/publications/storeFullInfo', [PublicationController::class,'storeFullPublicationInfo']);
 Route::post('/publications/store', [PublicationController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/publications/update', [PublicationController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/publications/delete', [PublicationController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);
