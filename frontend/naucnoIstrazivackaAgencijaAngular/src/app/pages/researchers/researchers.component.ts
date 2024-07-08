@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResearchersFilterComponent } from '../../components/researchers-filter/researchers-filter.component';
 import { City } from '../../domain/city.domain';
 import { ResearcherFilter } from '../../domain/researchersFilter';
@@ -30,12 +30,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <br />
     <br />
     <a routerLink="../researchers/add" routerLinkActive="active"
-      >Add New Researcher</a
-    >
+      >Add New Researcher</a>
   `,
   styleUrl: './researchers.component.scss',
 })
-export class ResearchersComponent {
+export class ResearchersComponent implements OnInit{
   researchers: Researcher[] = [];
   cities: City[] = [];
   page: number = 1; //uzeti iz podkomponente

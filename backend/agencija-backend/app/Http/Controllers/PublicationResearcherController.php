@@ -117,7 +117,7 @@ class PublicationResearcherController extends Controller
 
     public function filterPaginate(Request $request)
     {
-        $researcherId = $request->researcherId;
+        // return "OVA METODA";
         $sizeString = $request->query('size');
         $size = 15;
         if (!$sizeString) {
@@ -125,10 +125,11 @@ class PublicationResearcherController extends Controller
         } else {
             $size = (int) $sizeString;
         }
-
-        if (!$researcherId) {
+        $researcherIdString = $request->query('researcherId');
+        if (!$researcherIdString) {
             return PublicationResearcherResource::collection(PublicationResearcher::paginate($size));
         } else {
+            $researcherId = (int) $researcherIdString;
             return PublicationResearcherResource::collection(PublicationResearcher::where('researcher_id', '=', $researcherId)->paginate($size));
         }
     }

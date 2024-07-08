@@ -59,6 +59,7 @@ class ResearcherController extends Controller
             return response()->json("Data not found", 404);
         } else
             return new ResearcherResource($researcher);
+            // return new ResearcherResource;
         //
     }
     /**
@@ -90,9 +91,6 @@ class ResearcherController extends Controller
 
         return response()->json($researcher, 201);
     }
-
-
-
     /**
      * Update the specified resource in storage.
      */
@@ -123,10 +121,6 @@ class ResearcherController extends Controller
         $researcher->delete();
         return response()->json(null, 204);
     }
-
-
-
-
     public function indexSimple()
     {
         $researchers = Researcher::all();

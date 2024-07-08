@@ -12,7 +12,8 @@ class ResearcherResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public static $wrap = "researcher";
+    // public static $wrap = "researcher";
+    public static $wrap = null;
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);

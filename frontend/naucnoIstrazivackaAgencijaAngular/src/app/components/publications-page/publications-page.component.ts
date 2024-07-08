@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Researcher } from '../../domain/researcher.domain';
+import { Publication } from '../../domain/publication.domain';
 
 @Component({
-  selector: 'app-researchers-page',
+  selector: 'app-publications-page',
   standalone: true,
   imports: [CommonModule,RouterLink,ReactiveFormsModule],
   template: `
-  <h3>RESEARCHERS</h3>
+  <h3>PUBLICATIONS</h3>
   <div>
     <table>
       <thead>
@@ -20,13 +20,10 @@ import { Researcher } from '../../domain/researcher.domain';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let r of researchers" routerLink="{{routeToResearchers}}/researchers/{{r.id}}">
-        <!-- <tr *ngFor="let r of researchers" routerLink="../researchers/{{r.id}}"> -->
-          <td>{{ r.id }}</td>
-          <td>{{ r.firstname }}</td>
-          <td>{{ r.lastname }}</td>
-          <td>{{ r.birthday }}</td>
-          <td>{{ r.city.name }}</td>
+        <tr *ngFor="let p of publications" routerLink="{{routeToPublications}}/publications/{{p.id}}">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.date }}</td>
         </tr>
       </tbody>
     </table>
@@ -52,17 +49,17 @@ import { Researcher } from '../../domain/researcher.domain';
     </button>
   </div>
 `,
-  styleUrl: './researchers-page.component.scss'
+  styleUrl: './publications-page.component.scss'
 })
-export class ResearchersPageComponent {
-  @Input() routeToResearchers: string = "";
+export class PublicationsPageComponent {
+  @Input() routeToPublications: string = "";
   pageSizeChanged() {
     //na blur
     this.pageSize = Number.parseInt(this.pageSetting.getRawValue());
     this.outputPageSize.emit(this.pageSize);
     console.log(this.pageSize);
   }
-  @Input() researchers: Researcher[] = [];
+  @Input() publications: Publication[] = [];
   @Output() outputPageSize = new EventEmitter<number>();
   pageSize: number = 10;
   @Output() outputCurrentPage = new EventEmitter<number>();

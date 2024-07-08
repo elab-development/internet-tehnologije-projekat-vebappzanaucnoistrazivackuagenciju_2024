@@ -12,11 +12,11 @@ export class UsersService {
   private http = inject(HttpClient);
   constructor() { }
 
-  public authenticate(user: AuthenticatingUser): Observable<UserToken> {
+  public authenticate(user: AuthenticatingUser): Observable<string> {
     const url = USERS_API_URL + '/login';
     const headers = { 'Content-Type': 'application/json' };
     const body = `{"email":"${user.email}","password":"${user.password}"}`;
-    return this.http.post<UserToken>(url, body, { headers });
+    return this.http.post<string>(url, body, { headers });
   }
 
   public register(user: RegistratingUser): Observable<UserToken> {

@@ -10,6 +10,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AddResearcherComponent } from './components/add-researcher/add-researcher.component';
 import { canActivateTokenGuard } from './guards/auth-guard.service';
 import { EditResearcherComponent } from './components/edit-researcher/edit-researcher.component';
+import { AddPublicationComponent } from './components/add-publication/add-publication.component';
+import { EditPublicationComponent } from './components/edit-publication/edit-publication.component';
 
 export const routes: Routes = [
     {
@@ -18,9 +20,13 @@ export const routes: Routes = [
         children:[
           {path:"researchers",title: 'Researchers',component:ResearchersComponent},
           {path:"researchers/add",title: 'AddResearcher',component:AddResearcherComponent,canActivate:[canActivateTokenGuard]},
-        //   {path:"researchers/:id",title: 'Researcher',component:EditResearcherComponent,canActivate:[canActivateTokenGuard]},
+          //   {path:"researchers/:id",title: 'Researcher',component:EditResearcherComponent,canActivate:[canActivateTokenGuard]},
           {path:"researchers/:id",title: 'Researcher',component:EditResearcherComponent},
+          
           {path:"publications",title: 'Publications',component:PublicationsComponent},
+          {path:"publications/add",title: 'AddPublication',component:AddPublicationComponent,canActivate:[canActivateTokenGuard]},
+          {path:"publications/:id",title: 'Publication',component:EditPublicationComponent},
+
           {path:"reports",title: 'Reports',component:ReportsComponent},
           {path:"account",title: 'Account',component:AccountComponent},
           {path:"logout",title: 'Logout',component:LogoutComponent},

@@ -1,7 +1,7 @@
 import { City } from "./city.domain";
 
 export type Researcher ={
-    id:number;
+    id?:number;
     firstname:string;
     lastname:string;
     birthday:Date;

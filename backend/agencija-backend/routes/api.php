@@ -22,7 +22,7 @@ Route::post('/researchers/filterPaginate', [ResearcherController::class,'filterP
 Route::post('/researchers/store', [ResearcherController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/researchers/update', [ResearcherController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/researchers/delete', [ResearcherController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);
-Route::get('/researchers/{id}', [ResearcherController::class,'showByIdSimple']);
+Route::get('/researchers/{id}', [ResearcherController::class,'showById']);
 
 Route::get('/publications', [PublicationController::class,'index']);
 Route::get('/publications/paginate', [PublicationController::class,'paginate']);
@@ -32,7 +32,7 @@ Route::delete('/publications/delete', [PublicationController::class,'destroy'])-
 Route::get('/publications/{id}', [PublicationController::class,'showById']);
 
 Route::get('/publicationResearchers', [PublicationResearcherController::class,'index']);
-Route::post('/publicationResearchers/filterPaginate', [PublicationResearcherController::class,'filterPaginate']);
+Route::get('/publicationResearchers/filterPaginate', [PublicationResearcherController::class,'filterPaginate']);
 Route::post('/publicationResearchers/store', [PublicationResearcherController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/publicationResearchers/delete', [PublicationResearcherController::class,'destroy'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/publicationResearchers/delete/{id}', [PublicationResearcherController::class,'destroyById'])->middleware(['auth:sanctum', 'ability:admin']);
