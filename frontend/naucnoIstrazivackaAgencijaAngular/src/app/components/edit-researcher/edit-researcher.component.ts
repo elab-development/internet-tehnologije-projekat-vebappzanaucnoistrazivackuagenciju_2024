@@ -75,6 +75,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
               ...pageData,
               data: pageData.data.map((pr) => ({
                 id: pr.publication.id,
+                text:pr.publication.text,
                 name: pr.publication.name,
                 date: pr.publication.date,
               })),
@@ -110,6 +111,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
             ...pageData,
             data: pageData.data.map((pr) => ({
               id: pr.publication.id,
+              text:pr.publication.text,
               name: pr.publication.name,
               date: pr.publication.date,
             })),
@@ -132,6 +134,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
             ...pageData,
             data: pageData.data.map((pr) => ({
               id: pr.publication.id,
+              text:pr.publication.text,
               name: pr.publication.name,
               date: pr.publication.date,
             })),
