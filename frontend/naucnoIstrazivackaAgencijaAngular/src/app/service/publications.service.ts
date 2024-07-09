@@ -26,4 +26,20 @@ export class PublicationsService {
     console.log(url);
     return this.http.get<Publication>(url);
   }
+  updatePublication(publication:Publication):Observable<Publication> {
+    const url = ${PUBLICATIONS_API_URL}/update;
+    const date = ${publication.date.getFullYear()}-${publication.date.getMonth()+1}-${publication.date.getDate()};
+    const body = {"id":${publication.id},"name":"${publication.name}","text":"${publication.text}","date":"${date}"};
+    console.log(body);
+    const headers = {'Content-Type': 'application/json'};
+    return this.http.put<Publication>(url,body,{headers});
+  }
+  savePublication(publication:Publication):Observable<Publication> {
+    const url = ${PUBLICATIONS_API_URL}/store;
+    const date = ${publication.date.getFullYear()}-${publication.date.getMonth()+1}-${publication.date.getDate()};
+    const body = {"name":"${publication.name}","text":"${publication.text}","date":"${date}"};
+    console.log(body);
+    const headers = {'Content-Type': 'application/json'};
+    return this.http.post<Publication>(url,body,{headers});
+  }
 }
