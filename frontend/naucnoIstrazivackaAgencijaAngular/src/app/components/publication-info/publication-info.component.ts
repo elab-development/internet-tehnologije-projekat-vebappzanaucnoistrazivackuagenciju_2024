@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Publication } from '../../domain/publication.domain';
 import { DateHelperService } from '../../service/date-helper.service';
@@ -17,17 +17,19 @@ import { DateHelperService } from '../../service/date-helper.service';
       name="name"
       id="name"
       formControlName="name"
+      (blur)="notifyChange()"
     />
     <br />
     <label for="publicationText">Publication Text</label>
     <br/>
-      <textarea id="publicationText" name="publicationText" formControlName="publicationText"></textarea>
+      <textarea id="publicationText" name="publicationText" formControlName="publicationText" (blur)="notifyChange()"></textarea>
     <br />
     <label for="date">Date: </label>
     <input
       type="text"
       placeholder="DD.MM.YYYY"
       (blur)="onDateBlur()"
+      (blur)="notifyChange()"
       (focus)="onDateFocus()"
       name="date"
       id="date"
@@ -35,12 +37,20 @@ import { DateHelperService } from '../../service/date-helper.service';
   />
     <br />
   </form>
-  <button [disabled]="!publicationForm.valid" (click)="savePublication()">Save</button>
+  <!-- <button [disabled]="!publicationForm.valid" (click)="savePublication()">Save</button> -->
   `,
   styleUrl: './publication-info.component.scss'
 })
-export class PublicationInfoComponent {
+export class PublicationInfoComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder,private dateHelper:DateHelperService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  notifyChange():void{
+    this.savePublication();// samo radi emitovanje publikacije nadkomponenti
+  }
 
   @Input() set publication({
     name,
@@ -99,8 +109,10 @@ export class PublicationInfoComponent {
     let publication: Publication = {
       name: name,
       text: publicationText,
-      date: date
+      date: convertedDate
     };
+    console.log("aloooo=======================");
+    console.log(publication);
     this.publicationEmitter.emit(publication);
   }
 

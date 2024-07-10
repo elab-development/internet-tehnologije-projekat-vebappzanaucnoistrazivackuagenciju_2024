@@ -66,7 +66,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
       this.id = +params['id'];
       console.log("ssssssssssssss   "+this.id+"   ssssssssssss")
       this.publicationResearcherService
-        .getPublicationResearchersPage(this.page, this.size, this.id)
+        .getPublicationResearchersByResearcherIdPage(this.page, this.size, this.id)
         //ulazi stranica sa data:PublicationResearcher
         // pipe(map()).
         .pipe(
@@ -104,7 +104,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
   pageChanged(newPage: number): void {
     this.page = newPage;
     this.publicationResearcherService
-      .getPublicationResearchersPage(newPage, this.size, this.id)
+      .getPublicationResearchersByResearcherIdPage(newPage, this.size, this.id)
       .pipe(
         map((pageData: Page<PublicationResearcher>) => {
           return {
@@ -127,7 +127,7 @@ export class EditResearcherComponent implements OnInit, OnChanges {
     console.log('logika:' + newSize);
     this.size = newSize;
     this.publicationResearcherService
-      .getPublicationResearchersPage(1, newSize, this.id)
+      .getPublicationResearchersByResearcherIdPage(1, newSize, this.id)
       .pipe(
         map((pageData: Page<PublicationResearcher>) => {
           return {

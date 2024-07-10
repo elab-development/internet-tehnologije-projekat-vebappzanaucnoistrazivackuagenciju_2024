@@ -16,6 +16,10 @@ export class ResearchersService {
   private http = inject(HttpClient);
   // private ls = inject(LocalStorageService);
   constructor() {}
+  public getAll(): Observable<Researcher[]> {
+    const url = RESEARCHERS_API_URL;
+    return this.http.get<Researcher[]>(url);
+  }
   getResearchersPage(
     page: number,
     size: number,
