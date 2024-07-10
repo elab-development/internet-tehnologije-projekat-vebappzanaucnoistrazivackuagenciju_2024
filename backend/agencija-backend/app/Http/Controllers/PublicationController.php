@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PublicationResource;
+use App\Http\Resources\PublicationsCollection;
 use App\Models\Publication;
 use App\Models\PublicationResearcher;
 use App\Models\Reference;
@@ -19,7 +20,8 @@ class PublicationController extends Controller
     public function index()
     {
         $publications = Publication::all();
-        return PublicationResource::collection($publications);
+        // return PublicationResource::collection($publications);
+        return new PublicationsCollection($publications);
         //
     }
     public function paginate(Request $request)
@@ -98,6 +100,8 @@ class PublicationController extends Controller
         //         }
         //     ]
         // }
+
+ 
         $validatedData = $request->validate([
             'publication.name' => 'required|string',
             'publication.text' => 'required|string',
@@ -146,6 +150,153 @@ class PublicationController extends Controller
                         'referenced_id' => $reference['referenced_id']
                     ]
                 );
+            }
+        });
+
+        return response()->json(['message' => 'Data saved successfully'], 200);
+    }
+    public function saveFullPublicationInfoDeleteAndStore(Request $request)
+    {
+        // {
+        //     "publication": {
+        //         "name": "Nta",
+        //         "text": "prva",
+        //         "date": "2024-06-25"
+        //     },
+        //     "publicationResearchers": [
+        //         {
+        //             "researcher_id": 1
+        //         },
+        //         {
+        //             "researcher_id": 3
+        //         },
+        //         {
+        //             "researcher_id": 2
+        //         }
+        //     ],
+        //     "references": [
+        //         {
+        //             "referenced_id": 2
+        //         },
+        //         {
+        //             "referenced_id": 1
+        //         }
+        //     ]
+        // }
+
+        // _______________________________________________________________________
+        // {
+        //     "publication": {
+        //         "name": "Nta",
+        //         "text": "prva",
+        //         "date": "2024-06-25"
+        //     },
+        //     "publicationResearchersToSave": [
+        //         {
+        //             "researcher_id": 1
+        //         },
+        //         {
+        //             "researcher_id": 3
+        //         },
+        //         {
+        //             "researcher_id": 2
+        //         }
+        //     ],
+        //     "publicationResearchersToDelete": [
+        //         {
+        //             "researcher_id": 1
+        //         },
+        //         {
+        //             "researcher_id": 3
+        //         },
+        //         {
+        //             "researcher_id": 2
+        //         }
+        //     ],
+        //     "referencesToSave": [
+        //         {
+        //             "referenced_id": 2
+        //         },
+        //         {
+        //             "referenced_id": 1
+        //         }
+        //     ],
+        //     "referencesToDelete": [
+        //         {
+        //             "referenced_id": 2
+        //         },
+        //         {
+        //             "referenced_id": 1
+        //         }
+        //     ]
+        // }
+ 
+        $validatedData = $request->validate([
+            'publication.name' => 'required|string',
+            'publication.text' => 'required|string',
+            'publication.date' => 'required|date',
+
+            'publicationResearchersToSave' => 'array',
+            'publicationResearchersToDelete' => 'array',
+
+            'publicationResearchersToSave.*.researcher_id' => 'required|integer|exists:researcher,id',
+            'publicationResearchersToDelete.*.researcher_id' => 'required|integer|exists:researcher,id',
+
+            'referencesToSave' => 'array',
+            'referencesToDelete' => 'array',
+
+            'referencesToSave.*.referenced_id' => 'required|integer|exists:publication,id',
+            'referencesToDelete.*.referenced_id' => 'required|integer|exists:publication,id',
+        ]);
+
+        DB::transaction(function () use ($validatedData) {
+            $publicationData = $validatedData['publication'];
+            $publication = Publication::create(
+                [
+                    'name' => $publicationData['name'],
+                    'text' => $publicationData['text'],
+                    'date' => $publicationData['date']
+                ]
+            );
+
+            foreach ($validatedData['publicationResearchersToSave'] as $pubResearcher) {
+                $publication_researcherDB = PublicationResearcher::searchByPublicationIdANDResearcherId($publication->id, $pubResearcher['researcher_id']);
+                if ($publication_researcherDB) {
+                    throw new Exception();
+                }
+
+                $publication_researcher = PublicationResearcher::create([
+                    'publication_id' => $publication->id,
+                    'researcher_id' => $pubResearcher['researcher_id']
+                ]);
+               
+            }
+            foreach ($validatedData['publicationResearchersToDelete'] as $pubResearcher) {
+                $publication_researcherDB = PublicationResearcher::searchByPublicationIdANDResearcherId($publication->id, $pubResearcher['researcher_id']);
+                if ($publication_researcherDB) {
+                    // throw new Exception();
+                    $publication_researcherDB->delete();
+                }
+            }
+
+            foreach ($validatedData['referencesToSave'] as $reference) {
+                $referenceDB = Reference::searchByPublicationIdANDReferencedId($publication->id, $reference['referenced_id']);
+                if ($referenceDB) {
+                    throw new Exception();
+                }
+                Reference::Create(
+                    [
+                        'publication_id' => $publication->id,
+                        'referenced_id' => $reference['referenced_id']
+                    ]
+                );
+            }
+            foreach ($validatedData['referencesToDelete'] as $reference) {
+                $referenceDB = Reference::searchByPublicationIdANDReferencedId($publication->id, $reference['referenced_id']);
+                if ($referenceDB) {
+                    // throw new Exception();
+                    $referenceDB->delete();
+                }
             }
         });
 

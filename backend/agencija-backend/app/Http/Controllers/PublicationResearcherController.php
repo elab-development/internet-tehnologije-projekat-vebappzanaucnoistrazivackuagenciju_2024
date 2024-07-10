@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PublicationResearcherCollection;
 use App\Http\Resources\PublicationResearcherResource;
 use App\Models\PublicationResearcher;
 use Illuminate\Http\Request;
@@ -115,7 +116,7 @@ class PublicationResearcherController extends Controller
         return response()->json(null, 204);
     }
 
-    public function filterPaginate(Request $request)
+    public function filterByResearcherAndPaginate(Request $request)
     {
         // return "OVA METODA";
         $sizeString = $request->query('size');
@@ -131,6 +132,18 @@ class PublicationResearcherController extends Controller
         } else {
             $researcherId = (int) $researcherIdString;
             return PublicationResearcherResource::collection(PublicationResearcher::where('researcher_id', '=', $researcherId)->paginate($size));
+        }
+    }
+    public function filterByPublication(Request $request)
+    {
+        $publicationIdString = $request->query('publicationId');
+        if (!$publicationIdString) {
+            // return PublicationResearcherResource::collection(PublicationResearcher::all());
+            return new PublicationResearcherCollection(PublicationResearcher::all());
+        } else {
+            $publicationId = (int) $publicationIdString;
+            // return PublicationResearcherResource::collection(PublicationResearcher::where('publication_id', '=', $publicationId)->get());
+            return new PublicationResearcherCollection(PublicationResearcher::where('publication_id', '=', $publicationId)->get());
         }
     }
 }

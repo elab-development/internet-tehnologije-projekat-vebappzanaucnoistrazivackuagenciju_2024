@@ -12,13 +12,13 @@ class ReferenceResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    public static $wrap = null;
+
     public function toArray(Request $request): array
     {
         return [
             "id"=> $this->resource->id,
-            // "publication"=> $this->resource->publication,
             "publication"=> new PublicationResource($this->resource->publication),
-            // "referenced"=> $this->resource->referenced,
             "referenced"=> new PublicationResource($this->resource->referenced),
         ];
     }

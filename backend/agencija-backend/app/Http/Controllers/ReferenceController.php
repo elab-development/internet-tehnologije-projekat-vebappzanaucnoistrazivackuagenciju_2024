@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReferenceCollection;
 use App\Http\Resources\ReferenceResource;
 use App\Models\Reference;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class ReferenceController extends Controller
     public function index()
     {
         $allItems = Reference::all();
-        return ReferenceResource::collection($allItems);
+        // return ReferenceResource::collection($allItems);
+        return new ReferenceCollection($allItems);
         // return $allItems;
     }
 
@@ -85,5 +87,18 @@ class ReferenceController extends Controller
             return response()->json("Data not found", 404);
         $ref->delete();
         return response()->json(null, 204);
+    }
+
+    public function filterByPublication(Request $request)
+    {
+        $publicationIdString = $request->query('publicationId');
+        if (!$publicationIdString) {
+            // return PublicationResearcherResource::collection(PublicationResearcher::all());
+            return new ReferenceCollection(Reference::all());
+        } else {
+            $publicationId = (int) $publicationIdString;
+            // return PublicationResearcherResource::collection(PublicationResearcher::where('publication_id', '=', $publicationId)->get());
+            return new ReferenceCollection(Reference::where('publication_id', '=', $publicationId)->get());
+        }
     }
 }

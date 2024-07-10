@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ResearcherResource;
+use App\Http\Resources\ResearchersCollection;
 use App\Models\Researcher;
 use Illuminate\Http\Request;
 use Nette\Schema\ValidationException;
@@ -15,7 +16,8 @@ class ResearcherController extends Controller
     public function index()
     {
         $researchers = Researcher::all();
-        return ResearcherResource::collection($researchers);
+        // return ResearcherResource::collection($researchers);
+        return new ResearchersCollection($researchers);
         //
     }
     public function paginate(Request $request)

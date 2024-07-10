@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PublicationResearcher extends Model
 {
     use HasFactory;
+
+    protected $wrap = null;
     protected $guarded = ['id'];
     
     protected $table = 'publication_researcher';
