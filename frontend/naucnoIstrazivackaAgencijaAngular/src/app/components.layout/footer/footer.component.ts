@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TimeApiService } from '../../service/time-api.service';
+import { Observable } from 'rxjs';
+import { CurrentTime } from '../../domain/timeApi';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
-  template: '<p>Milos Matic     ITEH 2024    Aleksa Krsmanovic</p>',
+  imports: [AsyncPipe, CommonModule],
+  template: `<p>Milos Matic     ITEH 2024    Aleksa Krsmanovic</p>
+   <!-- <p *ngIf="time$ | async as time">{{time.dateTime}}</p> -->
+   `,
   styles: [
     `
       p {
@@ -27,4 +33,11 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class FooterComponent {}
+export class FooterComponent implements OnInit {
+  time$!: Observable<CurrentTime>;
+  constructor(private timeService: TimeApiService){}
+  ngOnInit(){
+    this.time$=this.timeService.getTime();
+   // this.time$.subscribe((x) => console.log(x.milliSeconds));
+  }
+}
