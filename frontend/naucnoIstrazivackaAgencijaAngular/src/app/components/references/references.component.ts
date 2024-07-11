@@ -23,7 +23,7 @@ import {
   MatDialogConfig,
   MatDialogModule,
 } from '@angular/material/dialog';
-import { catchError } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { AddReferencePopup } from '../add-reference-to-publication-popup';
 @Component({
   selector: 'app-references',
@@ -114,7 +114,9 @@ export class ReferencesComponent implements OnInit, OnChanges {
         .pipe(
           catchError((err) => {
             // console.log('PROBLEM');
-            throw Error;
+            console.error('Error occurred:', err);
+            // Handle the error appropriately here, e.g., show a message to the user
+            return of([]);
           })
         )
         .subscribe((x) => {
@@ -125,21 +127,7 @@ export class ReferencesComponent implements OnInit, OnChanges {
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log("--------------Promena------------");
-    // console.log(
-    //   JSON.stringify(
-    //     {
-    //       referencesToSave: this.addedItems,
-    //       referencesToDelete: this.deleteItems,
-    //     },
-    //     null,
-    //     2
-    //   )
-    // );
-    // this.referenceEmitter.emit({
-    //   referencesToSave: this.addedItems,
-    //   referencesToDelete: this.deleteItems,
-    // });
+    
   }
   addClicked(): void {
     console.log(
@@ -154,7 +142,6 @@ export class ReferencesComponent implements OnInit, OnChanges {
       // height:'250px',
       id: 'chooseTitle',
       disableClose: true,
-      // data: { academicTitles: this.academicTitles, employee: this.employee },
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed with result:', result);

@@ -37,9 +37,9 @@ class Reference extends Model
         $record = self::where('publication_id', $publication_id)
                       ->where('referenced_id', $referenced_id)
                       ->first();
-        if (!$record) {
-            return null;
-        }
+        // if (!$record) {
+        //     return null;
+        // }
         return $record;
     }
 }

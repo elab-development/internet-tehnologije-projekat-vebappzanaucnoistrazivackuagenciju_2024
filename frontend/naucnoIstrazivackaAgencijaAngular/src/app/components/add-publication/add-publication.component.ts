@@ -41,21 +41,7 @@ export class AddPublicationComponent {
         this.location.back();
       });
   }
-  fillAuthorsInfo($event: {
-    publicationResearchersToSave: import('../../domain/publicationResearcher.domain').PublicationResearcher[];
-    publicationResearchersToDelete: import('../../domain/publicationResearcher.domain').PublicationResearcher[];
-  }) {
-    console.log('this.fillAuthorsInfo');
-    console.log(JSON.stringify($event));
-    this.publicationFullInfo.publicationResearchersToSave =
-      $event.publicationResearchersToSave.map((author) => ({
-        researcher_id: author.researcher.id!,
-      }));
-    this.publicationFullInfo.publicationResearchersToDelete =
-      $event.publicationResearchersToDelete.map((author) => ({
-        researcher_id: author.researcher.id!,
-      }));
-  }
+  
   publication: Publication = {
     name: '',
     text: '',
@@ -72,6 +58,22 @@ export class AddPublicationComponent {
     public publicationsService: PublicationsService,
     public location: Location
   ) {}
+
+  fillAuthorsInfo($event: {
+    publicationResearchersToSave: import('../../domain/publicationResearcher.domain').PublicationResearcher[];
+    publicationResearchersToDelete: import('../../domain/publicationResearcher.domain').PublicationResearcher[];
+  }) {
+    console.log('this.fillAuthorsInfo');
+    console.log(JSON.stringify($event));
+    this.publicationFullInfo.publicationResearchersToSave =
+      $event.publicationResearchersToSave.map((author) => ({
+        researcher_id: author.researcher.id!,
+      }));
+    this.publicationFullInfo.publicationResearchersToDelete =
+      $event.publicationResearchersToDelete.map((author) => ({
+        researcher_id: author.researcher.id!,
+      }));
+  }
 
   fillReferencesInfo($event: {
     referencesToSave: Reference[];

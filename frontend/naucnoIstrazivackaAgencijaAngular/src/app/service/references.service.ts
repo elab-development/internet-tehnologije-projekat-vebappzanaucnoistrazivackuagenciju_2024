@@ -19,7 +19,7 @@ export class ReferencesService {
   getReferencesByPublicationId(
     publicationId: number
   ): Observable<Reference[]> {
-    const url = `${REFERENCES_API_URL}/filterByPublicationId?publicationId=${publicationId}`;
+    const url = `${REFERENCES_API_URL}/filterByPublication?publicationId=${publicationId}`;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.get<Reference[]>(url, { headers });
   }

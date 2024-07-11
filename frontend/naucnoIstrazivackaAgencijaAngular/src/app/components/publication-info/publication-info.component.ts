@@ -142,5 +142,5 @@ export class PublicationInfoComponent implements OnChanges {
       dateInputElement.type = 'date';
     }
     dateInputElement.valueAsDate = convertedDate;
-  }
+  }
 }

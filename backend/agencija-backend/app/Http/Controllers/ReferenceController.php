@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ReferenceCollection;
 use App\Http\Resources\ReferenceResource;
 use App\Models\Reference;
+use Exception;
 use Illuminate\Http\Request;
 
 class ReferenceController extends Controller
@@ -99,6 +100,25 @@ class ReferenceController extends Controller
             $publicationId = (int) $publicationIdString;
             // return PublicationResearcherResource::collection(PublicationResearcher::where('publication_id', '=', $publicationId)->get());
             return new ReferenceCollection(Reference::where('publication_id', '=', $publicationId)->get());
+        }
+    }
+    public function filterByPublicationIdAndRefId(Request $request)
+    {
+        $publicationIdString = $request->query('publicationId');
+        $referencedIdString = $request->query('referencedId');
+        if (!$publicationIdString || !$referencedIdString) {
+            // return PublicationResearcherResource::collection(PublicationResearcher::all());
+            return new ReferenceCollection(Reference::all());
+        } else {
+            $publicationId = (int) $publicationIdString;
+            $referencedId = (int) $referencedIdString;
+            $referenceDB = Reference::searchByPublicationIdANDReferencedId($publicationId, $referencedId);
+                if (!$referenceDB) {
+                    throw new Exception("nema ");
+                    // $referenceDB->delete();
+                }
+            // return PublicationResearcherResource::collection(PublicationResearcher::where('publication_id', '=', $publicationId)->get());
+            return $referenceDB;
         }
     }
 }

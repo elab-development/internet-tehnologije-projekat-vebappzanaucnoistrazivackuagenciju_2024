@@ -28,6 +28,7 @@ Route::get('/publications', [PublicationController::class,'index']);
 Route::get('/publications/paginate', [PublicationController::class,'paginate']);
 Route::post('/publications/storeFullInfo', [PublicationController::class,'storeFullPublicationInfo']);
 Route::post('/publications/saveFullPublicationInfoDeleteAndStore', [PublicationController::class,'saveFullPublicationInfoDeleteAndStore']);
+Route::put('/publications/updateFullPublicationInfoDeleteAndStore', [PublicationController::class,'updateFullPublicationInfoDeleteAndStore']);
 Route::post('/publications/store', [PublicationController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::put('/publications/update', [PublicationController::class,'update'])->middleware(['auth:sanctum', 'ability:user,admin']);
 Route::delete('/publications/delete', [PublicationController::class,'destroy'])->middleware(['auth:sanctum', 'ability:admin']);
@@ -41,6 +42,7 @@ Route::delete('/publicationResearchers/delete', [PublicationResearcherController
 Route::delete('/publicationResearchers/delete/{id}', [PublicationResearcherController::class,'destroyById'])->middleware(['auth:sanctum', 'ability:admin']);
 Route::get('/publicationResearchers/{id}', [PublicationResearcherController::class,'showById']);
 
+Route::get('/references/filterByPublicationIdAndRefId', [ReferenceController::class,'filterByPublicationIdAndRefId']);
 Route::get('/references/filterByPublication', [ReferenceController::class,'filterByPublication']);
 Route::get('/references', [ReferenceController::class,'index']);
 Route::post('/references/store', [ReferenceController::class,'store'])->middleware(['auth:sanctum', 'ability:user,admin']);

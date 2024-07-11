@@ -74,4 +74,32 @@ export class PublicationsService {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<string>(url, body, { headers });
   }
+  updatePublicationFullInfo(
+    publication: PublicationFullInfo
+  ): Observable<string> {
+    const url = `${PUBLICATIONS_API_URL}/updateFullPublicationInfoDeleteAndStore`;
+    console.log(
+      '*******UPDATE**************************************************************'
+    );
+    const someDate = new Date(publication.publication.date);
+
+    // const datePubl = `${publication.publication.date.getFullYear()}-${
+    const datePubl = `${someDate.getFullYear()}-${
+      someDate.getMonth() + 1
+    }-${someDate.getDate()}`;
+    const body = `{"publication":{"id":${publication.publication.id},
+    "name":"${publication.publication.name}",
+    "text":"${publication.publication.text}","date":"${datePubl}"},
+    "publicationResearchersToDelete":${JSON.stringify(
+      publication.publicationResearchersToDelete
+    )},
+    "publicationResearchersToSave":${JSON.stringify(
+      publication.publicationResearchersToSave
+    )},
+    "referencesToSave":${JSON.stringify(publication.referencesToSave)},
+    "referencesToDelete":${JSON.stringify(publication.referencesToDelete)}}`;
+    console.log(JSON.stringify(body));
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.put<string>(url, body, { headers });
+  }
 }

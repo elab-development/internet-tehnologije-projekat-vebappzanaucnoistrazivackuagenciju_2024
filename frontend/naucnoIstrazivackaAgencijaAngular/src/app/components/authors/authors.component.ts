@@ -104,7 +104,7 @@ export class AuthorsComponent {
     if (!this.publicationId) return;
     else{
       console.log("---------------");
-      console.log("prosledjeni id publikacije u komponenti Reference: "+this.publicationId);
+      console.log("prosledjeni id publikacije u komponenti Authors: "+this.publicationId);
       this.publicationResearcherService
         .getPublicationResearchersByPublicationId(this.publicationId)
         .pipe(
@@ -121,21 +121,7 @@ export class AuthorsComponent {
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log("--------------------------");
-    // console.log(
-    //   JSON.stringify(
-    //     {
-    //       publicationResearchersToSave: this.addedItems,
-    //       publicationResearchersToDelete: this.deleteItems,
-    //     },
-    //     null,
-    //     2
-    //   )
-    // );
-    // this.authorsEmitter.emit({
-    //   publicationResearchersToSave: this.addedItems,
-    //   publicationResearchersToDelete: this.deleteItems,
-    // });
+    
   }
   addClicked(): void {
     console.log("kliknuo sam add. duzina liste je sledeca: "+this.publicationResearchersNiz.length);
