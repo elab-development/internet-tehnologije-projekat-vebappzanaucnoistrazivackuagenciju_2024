@@ -15,8 +15,10 @@ import { Researcher } from '../../domain/researcher.domain';
       <thead>
         <tr>
           <th>Id</th>
-          <th>Name</th>
-          <th>Date</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Birthday</th>
+          <th>City</th>
         </tr>
       </thead>
       <tbody>

@@ -15,6 +15,6 @@ export class TimeApiService {
   getTime(): Observable<CurrentTime> {
     const url = TIME_API_URL;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get<CurrentTime>(url, { headers });
-  }
+    return this.http.get<CurrentTime>(url, { headers });
+  }
 }

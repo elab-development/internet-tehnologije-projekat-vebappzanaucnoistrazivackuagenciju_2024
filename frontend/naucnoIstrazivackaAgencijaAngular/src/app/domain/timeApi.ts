@@ -21,4 +21,4 @@ export type CurrentTime ={
     'Wednesday' | 
     'Thursday' | 
     'Friday' | 
-    'Saturday';
+    'Saturday';

@@ -12,5 +12,5 @@ describe('TimeApiService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
+  });
 });
