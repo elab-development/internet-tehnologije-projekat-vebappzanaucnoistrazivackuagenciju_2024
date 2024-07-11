@@ -129,7 +129,8 @@ export class AuthorsComponent {
   }
   openPopup(): void {
     const dialogRef = this.popup.open(AddAuthorsPopup, {
-      width: '343px',
+      width: '420px',
+      // width: '343px',
       // height:'250px',
       id: 'chooseTitle',
       disableClose: true,
