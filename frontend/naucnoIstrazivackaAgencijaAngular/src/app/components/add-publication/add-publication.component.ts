@@ -29,6 +29,11 @@ import { AuthorsComponent } from '../authors/authors.component';
 
     <br />
     <button (click)="savePublicationFullInfo()">Save</button>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   `,
   styleUrl: './add-publication.component.scss',
 })

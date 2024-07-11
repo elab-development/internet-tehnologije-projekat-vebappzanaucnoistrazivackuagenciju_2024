@@ -35,6 +35,10 @@ import { catchError, of } from 'rxjs';
     <br />
     <button (click)="updatePublicationFullInfo()">Save</button>
     <br />
+    <br />
+    <br />
+    <br />
+    <br />
   `,
   styleUrl: './edit-publication.component.scss'
 })
