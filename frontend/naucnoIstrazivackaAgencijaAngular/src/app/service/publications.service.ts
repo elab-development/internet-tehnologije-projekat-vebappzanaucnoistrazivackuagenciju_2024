@@ -69,7 +69,7 @@ export class PublicationsService {
       publication.publicationResearchersToSave
     )},
     "referencesToSave":${JSON.stringify(publication.referencesToSave)},
-    "referencesToDelete":${JSON.stringify(publication.referencesToSave)}}`;
+    "referencesToDelete":${JSON.stringify(publication.referencesToDelete)}}`;
     console.log(body);
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<string>(url, body, { headers });

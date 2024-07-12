@@ -34,6 +34,11 @@ import { Page } from '../../domain/page';
     (outputCurrentPage)="pageChanged($event)"
     (outputPageSize)="sizeChanged($event)"
     ></app-publications-page>
+    <br />
+    <br />
+    <br />
+    <br />
+
   `,
   styleUrl: './edit-researcher.component.scss',
 })

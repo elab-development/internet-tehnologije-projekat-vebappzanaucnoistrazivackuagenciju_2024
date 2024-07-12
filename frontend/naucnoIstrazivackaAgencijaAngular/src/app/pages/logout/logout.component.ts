@@ -26,7 +26,8 @@ export class LogoutComponent {
     private localStorageService: LocalStorageService
   ) {}
   back() {
-    this.location.back();
+    // this.location.back();
+    this.router.navigate(['/home']);
   }
   logout() {
     this.localStorageService.remove('userToken');

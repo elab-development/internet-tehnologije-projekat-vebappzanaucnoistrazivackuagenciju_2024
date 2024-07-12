@@ -96,6 +96,7 @@ export class AddPublicationComponent {
         referenced_id: reference.referenced.id!,
       })
     );
+    console.log(JSON.stringify(this.publicationFullInfo));
   }
 
   fillPublicationInfo($event: Publication) {
