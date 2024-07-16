@@ -81,6 +81,7 @@ export class PublicationsService {
     console.log(
       '*******UPDATE**************************************************************'
     );
+    console.log(url);
     const someDate = new Date(publication.publication.date);
 
     // const datePubl = `${publication.publication.date.getFullYear()}-${

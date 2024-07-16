@@ -10,7 +10,7 @@ export const canActivateTokenGuard: CanActivateFn = (
     let canActivate = false;
     canActivate = inject(PermissionsService).canActivate(inject(LocalStorageService).get("userToken"));
     if(!canActivate){
-        inject(Router).navigate(['/account']);
+        inject(Router).navigate(['/home/account']);
     }
     return canActivate;
   };
