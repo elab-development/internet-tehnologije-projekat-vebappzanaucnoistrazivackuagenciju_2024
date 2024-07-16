@@ -1,0 +1,37 @@
+<h3>Basic info:</h3>
+<form [formGroup]="researcherForm">
+  <label for="firstname">Firstname: </label>
+  <input
+    type="text"
+    name="firstname"
+    id="firstname"
+    formControlName="firstname"
+  />
+  <br />
+  <label for="lastname">Lastname: </label>
+  <input type="text" name="lastname" id="lastname" formControlName="lastname" />
+  <br />
+  <label for="birthday">Birthday: </label>
+  <input
+    type="text"
+    placeholder="DD.MM.YYYY"
+    (blur)="onBirthdayBlur()"
+    (focus)="onBirthdayFocus()"
+    name="birthday"
+    id="birthday"
+    formControlName="birthday"
+/>
+  <br />
+  <label for="cmbCity">Izaberi grad</label>
+  <select formControlName="city" id="cmbCity">
+    <option *ngFor="let option of cities" [value]="option.name">
+      {{ option.name }}
+    </option>
+  </select>
+  <div *ngIf="researcherForm?.get('city')?.errors?.['not selected']">
+    u must select
+  </div>
+  <br />
+</form>
+<button [disabled]="!researcherForm.valid" (click)="saveResearcher()">Save</button>
+
